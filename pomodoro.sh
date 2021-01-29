@@ -83,13 +83,16 @@ set_timer() {
       if (($i % 9 == 0)) ; then
         status=long_break
         timer=$timer_long_break
+        notify long-break
         i=1
       elif (($i % 2 == 0)) ; then
         status=work
         timer=$timer_work
+        notify started
       else
         status=break
         timer=$timer_break
+        notify break
       fi
       ((i++))
     fi
@@ -112,8 +115,14 @@ notify() {
       case $status in
         work) notify-send "Pomodoro Timer" "Get to work!\n\nTime remaining: $remaining" ;;
         break) notify-send "Pomodoro Timer" "Enjoy a short break\n\nTime remaining: $remaining" ;;
-        long_break) notify-send "Pomodoro Timer" "Enjoy a long break\n\nTime remaining: $remaining" ;;
+        long-break) notify-send "Pomodoro Timer" "Enjoy a long break\n\nTime remaining: $remaining" ;;
       esac
+      ;;
+    stopped) notify-send "Pomodoro Timer" "Timer stopped" ;;
+    started) notify-send "Pomodoro Timer" "Timer started" ;;
+    paused) notify-send "Pomodoro Timer" "Timer paused" ;;
+    break) notify-send "Pomodoro Timer" "Time for a short break" ;;
+    long-break) notify-send "Pomodoro Timer" "Time for a long break" ;;
   esac
 }
 
