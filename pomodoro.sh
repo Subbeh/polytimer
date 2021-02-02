@@ -57,7 +57,7 @@ status() {
     stopped) 
       underline=$clr_stopped
       icon=$icon_stopped
-      echo %{u#${underline}} $icon %{-u} 
+      echo %{u#${underline}}%{+u} $icon %{-u} 
       return
       ;;
   esac
@@ -66,7 +66,7 @@ status() {
   seconds=0$((timer % 60)) 
   remaining=${minutes: -2}:${seconds: -2}
 
-  echo %{u#${underline}}$icon $remaining%{-u}
+  echo %{u#${underline}}%{+u}$icon $remaining%{-u}
 }
 
 toggle() {
